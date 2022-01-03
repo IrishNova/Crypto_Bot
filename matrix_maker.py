@@ -1,8 +1,15 @@
 import itertools
 import numpy as np
 
+"""This doesnt lead to any successful trade pattern thus has had functionality commented out in the 
+backrester in favor of triggers that work better to showcase the graphic portion of the program"""
 
 def rng_finder(df):
+    """
+    finds the min and max, obviously.
+    :param df: dataframe
+    :return: min and max
+    """
     mn = min(df)
     mx = max(df)
     return mn, mx

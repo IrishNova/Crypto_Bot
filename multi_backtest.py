@@ -140,29 +140,34 @@ class MultiVariableBackTest(MultiBase):
         self.trades = 0
         self.current_balance = self.initial_balance
 
-        for slug in self.matrix:
-            base_points = list(slug)
-            low = float(base_points[0])
-            high = float(base_points[1])
-            # first = self.matrix[slug][0]
-            # second = self.matrix[slug][1]
-            # third = self.matrix[slug][2]
-            # fourth = self.matrix[slug][3]
-            for bar in range(len(self.data) - 1):
+        # # the loop is commented out because there's no successful strategy using the code.
+        # for slug in self.matrix:
+        #     base_points = list(slug)
+        #     low = float(base_points[0])
+        #     high = float(base_points[1])
+        #     # first = self.matrix[slug][0]
+        #     # second = self.matrix[slug][1]
+        #     # third = self.matrix[slug][2]
+        #     # fourth = self.matrix[slug][3]
+        # #   The following loops need to be tabbed over if this loop is commented in
+        for bar in range(len(self.data) - 1):
 
-                if self.data["price_z"].iloc[bar] < -1:
-                    if self.position in [0, -1]:
-                        if low < self.data["price_z"].iloc[bar] > high:
-                            self.buy(bar)
-                            self.position = 1
-                        else:
-                            pass
-                elif self.data["vol_z"].iloc[bar] < .5:
-                    if self.position in [-0, 1]:
-                        self.sell(bar)
-                        self.position = -1
-            self.close_pos(bar + 1)
-            if self.current_balance > self.initial_balance:
-                self.plot_data()
-            else:
-                pass
+            if self.data["price_z"].iloc[bar] < -.5:
+                if self.position in [0, -1]:
+                    if -1 < self.data["vol_z"].iloc[bar] > 1:
+                        self.buy(bar)
+                        self.position = 1
+                    else:
+                        pass
+            elif self.data["vol_z"].iloc[bar] < .5:
+                if self.position in [-0, 1]:
+                    self.sell(bar)
+                    self.position = -1
+        self.close_pos(bar + 1)
+        # # commented out with the above section.
+        # if self.current_balance > self.initial_balance:
+        #     self.plot_data()
+        # else:
+        #     pass
+
+        self.plot_data()
