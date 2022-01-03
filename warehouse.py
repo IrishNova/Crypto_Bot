@@ -1,6 +1,8 @@
 import pandas as pd
 from pymongo import MongoClient
 import certifi
+from calculator import calculator_main
+from matrix_maker import matrix_starter
 
 
 class Daryl:
@@ -10,7 +12,7 @@ class Daryl:
         self.worked_data = None
         self.matrix = None
         self.data_retriever()
-        # self.data_calc()
+        self.data_calc()
 
     def mongo_cluster(self):
         """
@@ -40,3 +42,8 @@ class Daryl:
         export = export.set_index("Date")
         self.raw_data = export
         return
+
+    def data_calc(self):
+        temp = self.raw_data.copy()
+        self.worked_data = calculator_main(temp)
+        self.matrix = matrix_starter(self.worked_data)
